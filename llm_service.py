@@ -39,9 +39,14 @@ def build_prompt(subject, body, category_labels):
         - "label": string (choose exactly one label from: {allowed_labels_text})
         - "summary": string (very brief one-sentence summary)
         - "tracking_number": string or null (extract package tracking number if present)
-        - "courier": string or null (FedEx, UPS, DHL, USPS, etc. if tracking exists)
+        - "courier": string or null (FedEx, UPS, DHL, USPS, Israel Post, etc. if tracking exists)
         
-        If no shipping details exist, set both "tracking_number" and "courier" to null.
+        Shipping detection instruction:
+        - Treat shipment updates as package-related even when the email is not in English.
+        - If shipping context words appear (for example: משלוח, tracking, pickup, courier, shipping, package, delivery, נקודת איסוף, דואר),
+          actively search for a tracking number in subject/body and return it when present.
+        - If shipping context exists but courier is unclear, keep "courier" as null.
+        - Only return null for "tracking_number" if no plausible tracking identifier appears in the content.
         """
 
 
