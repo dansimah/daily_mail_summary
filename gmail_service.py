@@ -1,8 +1,8 @@
 from simplegmail import Gmail
 
 
-def authenticate():
-    return Gmail()
+def authenticate(client_secret_file, token_file):
+    return Gmail(client_secret_file=client_secret_file, creds_file=token_file)
 
 
 def fetch_label_map(gmail):

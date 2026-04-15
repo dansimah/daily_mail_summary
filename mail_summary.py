@@ -1,6 +1,8 @@
 import json
 from config import (
     CATEGORY_LABELS,
+    GMAIL_CLIENT_SECRET_FILE,
+    GMAIL_TOKEN_FILE,
     INBOX_QUERY,
     OLLAMA_MODEL,
     OLLAMA_URL,
@@ -32,7 +34,7 @@ def main():
 
     try:
         log("Authenticating with Gmail API...")
-        gmail = authenticate()
+        gmail = authenticate(GMAIL_CLIENT_SECRET_FILE, GMAIL_TOKEN_FILE)
         log("Authentication successful.")
     except Exception as e:
         log(f"CRITICAL ERROR: Could not connect to Gmail. {e}")
